@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS1_Lesson1</title>
+    <script>
+        // 1.
+        var Tc, Tf;
+        Tc = +prompt('Введите значение температуры: ');
+        Tf = (9 / 5) * Tc + 32;
+        alert('Температура по Цельсию: ' + Tc + ' градусов\nТемпература по Фаренгейту: ' + Tf + ' градусов');
+
+        // 2.
+        var admin, name = 'Василий';
+        admin = name;
+        console.log('name: ' + name + '\nadmin: ' + admin);
+
+        // 3.
+        var a = 1000,
+            b = '108',
+            c;
+        с = 1000 + '108';
+        console.log(c); // undefined, сложение разных типов данных
+        console.log(1000 + '108'); // '1000108' - преобразование и конкатенация строк
+
+        // 4.
+        /*
+        Атрибуты определяют порядок загрузки внешних скриптов на странице. Async подразумевает асинхронную загрузку скриптов (параллельную) и их выполнение в порядке загрузки. Defer подразумевает загрузку сохраняя порядок относительно друг друга (последовательно).
+        */
+
+        // 5.
+        var a = 10,
+            b = 20;
+        a = a + b - (b = a);
+        //a = a * b / (b = a);
+        //b = [a, a = b][0];
+        //[a, b] = [b, a]
+        console.log('a:' + a + ' b:' + b);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
