@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS1_Lesson2</title>
+
+</head>
+
+<body>
+    <script>
+        // 1) Дан код:
+        var a = 1,
+            b = 1,
+            c, d;
+        console.group('#1');
+        console.log('Исходные данные: ' + 'a = ' + a + ', b = ' + b + ', c = ' + c + ', d = ' + d);
+        c = ++a;
+        console.log(c + ' // префиксная форма, сначала инкремент а, затем присвоение значения в с'); // c=2, a=2
+        d = b++;
+        console.log(d + ' // постфиксная форма, сначала присвоение значения в d, затем инкремент b'); // d=1, b=2
+        c = (2 + ++a);
+        console.log(c + ' // префиксная форма инкремента, инкремент а(строка 1), затем сложение 5 = 2 + 3'); // c=5, a=3
+        d = (2 + b++);
+        console.log(d +
+            ' // постфиксная форма инкремента, сначала сложение 4 = 2 + 2, а после инкремент b(строка 2)'); // d=4, b=3
+        console.log(a + ' // после инкремента в строке 3'); // a=3
+        console.log(b + ' // после инкремента в строке 4'); // b=3
+        console.groupEnd();
+
+        // 2)Чему будет равен x в примере ниже?
+        var a = 2;
+        var x = 1 + (a *= 2); // x=5, x = 1 + (a), где а = а*2 = 4
+        console.group('#2');
+        console.log(x);
+        console.groupEnd();
+
+        // 3) Объявить две целочисленные переменные a и b и задать им произвольные начальные значения.
+        // Затем написать скрипт, который работает по следующему принципу:
+        // * если a и b положительные, вывести их разность;
+        // * если а и b отрицательные, вывести их произведение;
+        // * если а и b разных знаков, вывести их сумму;
+        // ноль можно считать положительным числом.
+        var n = 1000,
+            a = Math.round(Math.random() * (n + n) - n),
+            b = Math.round(Math.random() * (n + n) - n)
+        console.group('#3');
+        if (a >= 0 && b >= 0) console.log(a + ' - ' + b + ' = ' + (a - b));
+        else if (a < 0 && b < 0) console.log(a + ' * ' + b + ' = ' + (a * b));
+        else {
+            console.log(a + ' + ' + b + ' = ' + (a + b));
+        }
+        console.groupEnd();
+
+        // 4) Присвоить переменной а значение в промежутке [0..15]. С помощью оператора switch организовать вывод чисел от a до 15.
+        var a = Math.round(Math.random() * (15 - 0 + 1) + 0);
+        console.group('#4');
+        console.log('Выпало число: ' + a);
+        switch (a) {
+            case 0:
+                console.log(0);
+            case 1:
+                console.log(1);
+            case 2:
+                console.log(2);
+            case 3:
+                console.log(3);
+            case 4:
+                console.log(4);
+            case 5:
+                console.log(5);
+            case 6:
+                console.log(6);
+            case 7:
+                console.log(7);
+            case 8:
+                console.log(8);
+            case 9:
+                console.log(9);
+            case 10:
+                console.log(10);
+            case 11:
+                console.log(11);
+            case 12:
+                console.log(12);
+            case 13:
+                console.log(13);
+            case 14:
+                console.log(14);
+            case 15:
+                console.log(15);
+        }
+        console.groupEnd();
+
+        // 5) Реализовать основные 4 арифметические операции в виде функций с двумя параметрами.Обязательно использовать оператор return.
+        function addition(x, y) {
+            return x + y;
+        }
+
+        function subtraction(x, y) {
+            return x - y;
+        }
+
+        function multiplication(x, y) {
+            return x * y;
+        }
+
+        function division(x, y) {
+            if (y == 0) return console.error('Ошибка! Деление на ноль');
+            return x / y;
+        }
+        console.group('#5');
+        console.log(addition(2, 4));
+        console.log(subtraction(2, -4));
+        console.log(multiplication(2, 4));
+        console.log(division(2, 0));
+        console.groupEnd();
+
+        // 6) Реализовать функцию с тремя параметрами: function mathOperation(arg1, arg2, operation), 
+        // где arg1, arg2 – значения аргументов, operation – строка с названием операции. 
+        // В зависимости от переданного значения операции выполнить одну из арифметических операций 
+        // и вернуть полученное значение (использовать switch).
+        function mathOperation(arg1, arg2, operation) { // add, sub, mult, div 
+            console.group('#6');
+            if (operation === undefined) {
+                console.warning('Не указано название операции!');
+                return;
+            }
+            switch (operation) {
+                case 'add':
+                    result = addition(arg1, arg2);
+                    break;
+                case 'sub':
+                    result = subtraction(arg1, arg2);
+                    break;
+                case 'mult':
+                    result = multiplication(arg1, arg2);
+                    break;
+                case 'div':
+                    result = division(arg1, arg2);
+                    break;
+            }
+            return result;
+        }
+        console.log('Результат: ' + mathOperation(20, 4, 'div'));
+        console.groupEnd();
+
+        // 7) * Сравнить null и 0. Попробуйте объяснить результат. 
+        console.group('#7');
+        // По спецификации ECMA есть алгоритмы сравнения для отношений и равенств.
+        console.log(null < 0); // false, null преобразовывается в +0, +0 = 0.
+        console.log(null <= 0); // true, т.к. null > 0 = false, с точки зрения математики
+        console.log(null == 0); // false, возвращается значение по умолчанию, т.к. нет подходящих условий в алгоритме
+        console.log(null >= 0); // true, т.к. null < 0 = false, с точки зрения математики
+        console.log(null > 0); // false, null преобразовывается в +0, +0 = 0.
+        console.groupEnd();
+
+        // 8) * С помощью рекурсии организовать функцию возведения числа в степень.
+        // Формат: function power(val, pow), где val – заданное число, pow – степень.
+        function power(val, pow) {
+            if (pow == 0) return 1;
+            else if (pow == 1) return val;
+            else return val * power(val, pow - 1);
+        }
+        var val = 2,
+            pow = 10
+        console.group('#8');
+        console.log(val + ' в степени ' + pow + ' равно ' + power(val, pow));
+        console.groupEnd();
+    </script>
+</body>
+
+</html>
