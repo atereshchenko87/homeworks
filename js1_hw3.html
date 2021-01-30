@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 3</title>
+</head>
+
+<body>
+    <script>
+        // 1. С помощью цикла while вывести все простые числа в промежутке от 0 до 100
+        var num = 2;
+        var arr = [];
+        while (num <= 100) {
+            if (isSimple(num)) {
+                arr.push(num);
+            }
+            num++;
+        }
+        console.log(arr.join(', '));
+
+        function isSimple(num) {
+            var i = 2;
+            while (i < num) {
+                if (num % i == 0) {
+                    return false;
+                }
+                i++;
+            }
+            return true;
+        };
+
+        // 2,3. Реализовать функционал подсчета стоимости корзины в зависимости от находящихся в ней товаров.
+        var basket = [{
+            title: "Товар 1",
+            price: 250,
+            count: 2
+        }, {
+            title: "Товар 2",
+            price: 750,
+            count: 3
+        }, {
+            title: "Товар 3",
+            price: 3500,
+            count: 1
+        }, {
+            title: "Товар 4",
+            price: 1500,
+            count: 5
+        }, {
+            title: "Товар 5",
+            price: 100,
+            count: 12
+        }]
+
+        function countBasketPrice(arr) {
+            var total = 0;
+            for (var item of arr) {
+                total += item.price * item.count
+                console.log(item.title + ' стоит ' + item.price * item.count);
+            };
+            return total;
+        };
+        console.log('Товаров на сумму: ' + countBasketPrice(basket));
+
+        // 4. Вывести с помощью цикла for числа от 0 до 9, не используя тело цикла
+        for (i = 0; i <= 9; console.log(i++)) {};
+
+        // 5. Нарисовать пирамиду
+        var str = 'x'
+        for (i = 0; i < 20; i++) {
+            console.log(str);
+            str += 'x';
+        }
+        // короткий вариант: for (i=1; i <=20; console.log('x'.repeat(i++))) {}
+    </script>
+</body>
+
+</html>
