@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 4.1</title>
+</head>
+
+<body>
+    <script>
+        // 1.
+        var ranks = {};
+        var number = +prompt('Введите число от 0 до 999');
+        transform(number);
+        console.log(ranks);
+
+        function transform(n) {
+            if (n < 0 || n > 999) {
+                console.log(' Число не входит в диапазон от 0 до 999.');
+                return ranks;
+            } else {
+                var numStr = Math.trunc(n).toString();
+                switch (numStr.length) {
+                    case 3:
+                        ranks.hundreds = numStr[0];
+                        ranks.dozens = numStr[1];
+                        ranks.units = numStr[2];
+                        break;
+                    case 2:
+                        ranks.dozens = numStr[0];
+                        ranks.units = numStr[1];
+                        break;
+                    case 1:
+                        ranks.units = numStr[0];
+                        break;
+                }
+            }
+            return ranks;
+        }
+    </script>
+</body>
+
+</html>
