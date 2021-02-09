@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preview</title>
+</head>
+
+<body>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .thumbnail {
+            display: flex;
+            margin: 20px 20px;
+        }
+
+        .thumbnail div {
+            margin-right: 20px;
+            width: 300px;
+            height: 150px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .thumbnail img {
+            width: 100%;
+        }
+
+        .preview {
+            margin: 0 20px;
+            width: 940px;
+            height: 470px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: top;
+        }
+
+        .preview img {
+            width: 100%;
+        }
+    </style>
+
+    <div class="wrapper">
+        <div class="thumbnail">
+            <div><img src="src/small/1.jpeg" alt="Домик"></div>
+            <div><img src="src/small/2.jpeg" alt="Водопав"></div>
+            <div><img src="src/small/3.jpeg" alt="Озеро"></div>
+        </div>
+        <div class="preview">
+            <img src="" alt="">
+        </div>
+    </div>
+
+    <script>
+        var list = document.querySelectorAll('.thumbnail img');
+        var preview = document.querySelector('.preview');
+        var img = document.querySelector('.preview img');
+        list.forEach(function (item) {
+            item.addEventListener('click', function () {
+                img.src = 'src/big/' + item.src.split('/').pop();
+                img.alt = item.alt;
+                img.onerror = function () {
+                    this.alt = 'Файл не найден';
+                }
+            })
+        });
+    </script>
+</body>
+
+</html>

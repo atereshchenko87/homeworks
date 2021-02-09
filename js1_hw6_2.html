@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basket</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="cart">
+            <div class="cart-header">
+                <h3>Корзина</h3>
+            </div>
+            <div class="cart-main"></div>
+            <div class="cart-footer">
+                <p>Товаров на сумму: <span class="total">0</span> рублей</p>
+            </div>
+        </div>
+        <div class="goods">
+        </div>
+    </div>
+
+    <script>
+        var goodsList = []; // массив с товарами
+        var goods = document.querySelector('.goods');
+        var cartList = []; // массив товаров в корзине
+        var cart = document.querySelector('.cart-main');
+
+        // конструктор
+        function GoodItem(name, articul, cost) {
+            this.name = name;
+            this.articul = articul;
+            this.cost = cost;
+        }
+        //заполняем товары
+        goodsList.push(new GoodItem('Блок питания be quiet! Pure Power 11 CM 600W', 'BN298', 8199));
+        goodsList.push(new GoodItem('Блок питания Cougar VTE600', 'CGR_BS-600', 3999));
+        goodsList.push(new GoodItem('Блок питания Xilence Performance AIII Series XN085', 'XP650R11', 5050));
+        goodsList.push(new GoodItem('Блок питания Deepcool DA 600W', 'DA600', 4499));
+
+        // добавляем карточки товаров
+        goodsList.forEach(function (item, index) {
+            goods.insertAdjacentHTML('beforeend',
+                `<div class="card">
+                <div class="img">
+                    <img src="src/goods/${item.articul}.jpg" alt="${item.name}">
+                </div>
+                <p class="descr">${item.name}</p>
+                <p class="price">${item.cost}</p>
+                <button class="buy-btn" data-index="${index}">В корзину</button>
+            </div>`);
+        });
+
+        // обработчик на кнопки
+        document.querySelectorAll('.buy-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var index = btn.getAttribute('data-index');
+                // добавляемый объект 
+                var item = {
+                    index: index,
+                    name: goodsList[index].name,
+                    art: goodsList[index].articul,
+                    cost: goodsList[index].cost,
+                    cnt: 1
+                }
+                // добавляем в массив корзины новый товар или увеличиваем количество
+                if (cartList.findIndex(el => el.art == item.art) == -1) {
+                    cartList.push(item);
+                    // отрисовываем элемент в корзине
+                    cart.insertAdjacentHTML('beforeend',
+                        `<div class="cart-item-wrapper" data-index="${item.index}">
+                            <p class="cart-item-name">${item.name}</p>
+                            <p class="cart-item-cost">${item.cost}</p>
+                            <div class="cart-item-control">
+                                <button onclick="reduce(${item.index}, '${item.art}')">-</button>
+                                <input class="val" type="number" value="${item.cnt}" disabled>
+                                <button onclick="add(${item.index}, '${item.art}')">+</button>
+                                <button onclick="del(${item.index}, '${item.art}')">Удалить</button>
+                            </div>
+                        </div>`
+                    );
+                    refreshTotal();
+                } else {
+                    add(item.index, item.art);
+                }
+            })
+
+
+        })
+        // функции
+        function add(index, art) {
+            cartList.find(el => el.art == art).cnt += 1;
+            document.querySelector(`.cart-item-wrapper[data-index="${index}"] input.val`).value = cartList.find(
+                el => el.art == art).cnt;
+            refreshTotal();
+        };
+
+        function reduce(index, art) {
+            if (cartList.find(el => el.art == art).cnt > 1) {
+                cartList.find(el => el.art == art).cnt -= 1;
+                document.querySelector(`.cart-item-wrapper[data-index="${index}"] input.val`).value = cartList.find(
+                    el => el.art == art).cnt;
+                refreshTotal();
+            }
+        };
+
+        function del(index, art) {
+            cartList.splice(cartList.findIndex(el => el.art == art), 1);
+            document.querySelector(`.cart-item-wrapper[data-index="${index}"]`).remove();
+            refreshTotal();
+        };
+
+        function refreshTotal() {
+            var total = 0;
+            cartList.forEach(function (item) {
+                total += item.cost * item.cnt;
+            })
+            document.querySelector('.total').innerHTML = total;
+        }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 1000px;
+            margin: 0 auto;
+        }
+
+        .cart,
+        .goods {
+            border: 1px solid #000;
+            border-radius: 10px;
+            min-height: 100px;
+            margin: 10px 0;
+        }
+
+        .goods {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            /* padding: 10px; */
+        }
+
+        .card {
+            width: 312px;
+            /* height: 250px; */
+            display: flex;
+            flex-direction: column;
+            /* align-items: center; */
+            padding: 10px;
+            border: 1px solid black;
+            border-radius: 10px;
+            margin: 10px;
+        }
+
+        .card .img {
+            width: 250px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-self: center;
+            overflow: hidden;
+        }
+
+        img {
+            width: 250px;
+            /* height: 250px; */
+        }
+
+        .descr {
+            font-size: 20px;
+            height: 40px;
+        }
+
+        .price {
+            font-size: 30px;
+            align-self: flex-end;
+            margin: 20px 0;
+        }
+
+        button {
+            padding: 5px 10px;
+        }
+
+
+        .cart {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 0 120px;
+        }
+
+        .cart-header {
+            margin: 10px;
+        }
+
+        .cart-footer {
+            margin: 10px;
+            align-self: flex-end;
+        }
+
+        .cart-item-wrapper {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+
+            padding: 5px 20px;
+        }
+
+        .cart-item-name {
+            /* width: 30%; */
+            flex-grow: 1;
+            /* font-size: 1.5em; */
+        }
+
+        .cart-item-cost {
+            margin: 0 50px;
+            /* font-size: 2em; */
+        }
+
+        input.val {
+            line-height: 25px;
+            width: 35px;
+        }
+    </style>
+</body>
+
+</html>

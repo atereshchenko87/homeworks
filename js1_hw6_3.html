@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slider</title>
+</head>
+
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .slider {
+            margin: 50px auto;
+            width: 500px;
+            overflow: hidden;
+        }
+
+        .slider-content {
+            width: 1500px;
+            height: 250px;
+            overflow: hidden;
+            display: flex;
+            position: relative;
+            left: 0;
+            transition: left ease-in-out 1s;
+        }
+
+        .slider-content img {
+            width: 500px;
+            height: 250px;
+        }
+
+        .control {
+            margin: 0 auto;
+            width: 250px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        button {
+            padding: 5px 10px;
+            width: 70px;
+        }
+    </style>
+
+    <div class="slider-wrapper">
+        <div class="slider">
+            <div class="slider-content">
+                <div><img src="src/small/1.jpeg" alt="Домик"></div>
+                <div><img src="src/small/2.jpeg" alt="Водопав"></div>
+                <div><img src="src/small/3.jpeg" alt="Озеро"></div>
+            </div>
+
+        </div>
+        <div class="control">
+            <button class="prev">Назад</button>
+            <button class="next">Вперед</button>
+        </div>
+    </div>
+
+    <script>
+        var offset = 0;
+        var content = document.querySelector('.slider-content');
+        document.querySelector('.next').addEventListener('click', function () {
+            offset += 500;
+            if (offset > 1000) {
+                offset = 0;
+            }
+            content.style.left = -offset + 'px';
+        })
+        document.querySelector('.prev').addEventListener('click', function () {
+            offset -= 500;
+            if (offset < 0) {
+                offset = 1000;
+            }
+            content.style.left = -offset + 'px';
+        })
+    </script>
+</body>
+
+</html>
