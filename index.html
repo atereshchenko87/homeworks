@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Feedback</title>
+</head>
+<body>
+
+	<form action="#" id="feedback">
+		<label for="name">Имя</label>
+		<input id="name" type="text" name="name" required>
+		<br>
+		<label for="phone">Телефон</label>
+		<input id="phone" type="text" name="phone" required>
+		<br>
+		<label for="email">E-mail</label>
+		<input id="email" type="text" name="email" required>
+		<br>
+		<label for="msg">Текст</label>
+		<input id="msg" type="text" name="msg" required>
+		<!-- <textarea name="msg" id="" cols="30" rows="10"></textarea> -->
+		<br>
+		<button id="submit-btn" type="submit">Отправить</button>
+	</form>
+
+    <script>
+		// 1,2
+		var str = "Lorem ipsum 'dolor' sit amet, aren't, i'm,  consectetur adipisicing elit. Asperiores, 'perferendis' nostrum, 'placeat minus consequuntur odio' sequi ad aren't eveniet fugiat, 'officia', dicta laborum modi. Unde aren't veritatis!";
+		console.log('Исходный текст : \n' + str);
+		
+		var str2 = str.replace(/\x27/g, "\x22");
+		console.log('Замена всех кавычек : \n' + str2);
+		
+		var str3 = str.replace(/([\s,])\x27\b/g, "$1\x22").replace(/\b\x27([\s,])/g, "\x22$1");
+		console.log("Замена кавычек кроме aren't : \n" + str3);
+
+		// 3
+		const form = document.querySelector('form');
+		form.addEventListener('submit', (e) => {
+			e.preventDefault();
+			form.querySelectorAll('input').forEach( el => el.style.borderColor = 'inherit');
+			form.querySelectorAll('.required').forEach( el => el.innerHTML = '');
+			if (!form.querySelector('#name').value.match(/[a-zA-Zа-яА-я ]+/g)) {
+				form.querySelector('#name').style.borderColor = 'red';
+				form.querySelector('#name').insertAdjacentHTML('afterend', `<span class="required">В имени допустимы только буквы</span>`)
+			}
+			else if (!form.querySelector('#phone').value.match(/\+7\(\d{3}\)\d{3}-\d{4}/)) {
+				form.querySelector('#phone').style.borderColor = 'red';
+				form.querySelector('#phone').insertAdjacentHTML('afterend', `<span class="required">Формат телефона в виде +7(ххх)ххх-хххх</span>`)
+			}
+			else if (!form.querySelector('#email').value.match(/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/i)) {
+				form.querySelector('#email').style.borderColor = 'red';
+				form.querySelector('#email').insertAdjacentHTML('afterend', `<span class="required">Не верный формать почты</span>`)
+			}
+			else if (!form.querySelector('#msg').value.match(/.{5}/i)) {
+				form.querySelector('#msg').style.borderColor = 'red';
+				form.querySelector('#msg').insertAdjacentHTML('afterend', `<span class="required">Текст сообщения не менее 5 символов</span>`)
+			}
+			else form.submit();
+		})
+	</script>
+
+	<style>
+		label{
+			display: inline-block;
+			width: 70px;
+		}
+		input{
+			margin: 0 10px 10px 0;
+		}
+	</style>
+</body>
+</html>
