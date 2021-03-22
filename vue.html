@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>eShop</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <div id="app">
+    <header>
+      <div class="container">
+        <h2>eShop</h2>
+        <input id="search" v-model="search" v-on:input="searchHandler">
+        <button class="cart-button" type="button" v-on:click="cartRenderHandler">Корзина <span v-if="cart.length != 0">{{ cart.length }}</span></button>
+      </div>
+    </header>
+
+    <div class="container">
+      <main>
+        
+        <div class="cart-list" v-if="isCartVisible">
+          <h3>Корзина товаров на сумму {{getCartTotal()}}</h3>
+          <p class="noData" v-if="!isEmptyCart">Нет добавленных товаров</p>
+          <ul>
+            <li v-for="(good, index) in cart">
+              <div>Наименование: {{ good.title }}</div>
+              <div>Цена: {{ good.price }}</div>
+              <div>Кол-во: 
+                <button class="minus" :data-art=good.art v-on:click="reduceFromCartHandler">-</button>  
+                {{ good.count }}  
+                <button class="plus" :data-art=good.art v-on:click="addToCartHandler">+</button>
+              </div>
+              <div>Стоимость: {{ good.price * good.count }}</div>
+              <button :data-index=index v-on:click="deleteFromCartHandler">Удалить</button>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="goods-list">
+          <p class="noData" v-if="!hasData">Нет данных для отображения</p>
+          <div class="goods-item" v-for="good in filtredGoods">
+            <div class="item-img">
+              <img :src=good.link :alt=good.title>
+            </div>
+            <h3>{{ good.title }}</h3>
+            <p>{{ good.price }}</p>
+            <button class="add-button" :data-art=good.art type="button" v-on:click="addToCartHandler">Добавить</button>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <script src="vue-script.js"></script>
+</body>
+
+</html>
