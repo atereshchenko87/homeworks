@@ -1,0 +1,8 @@
+[
+    { "art": "g01", "title": "Coat", "price": 450, "link": "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa/global/598253/84/fnd/RUS/w/1000/h/1000/bg/255,255,255" },
+    { "art": "g02", "title": "Shirt", "price": 150, "link": "https://storage.vsemayki.ru/images/0/1/1351/1351701/previews/people_4_manshortfull_front_white_500.jpg" },
+    { "art": "g03", "title": "Socks", "price": 50, "link": "https://www.rei.com/media/fb51e06c-8b92-406f-8803-6fb2c84ada00?size=784x588" },
+    { "art": "g04", "title": "Jacket", "price": 350, "link": "https://www.louisvuitton.com/images/HHK72WUY5704_PM2_Front%20view" },
+    { "art": "g05", "title": "Shoes", "price": 250, "link": "https://images.dsw.com/is/image/DSWShoes/500650_001_ss_01?$colpg$" }
+]
+
